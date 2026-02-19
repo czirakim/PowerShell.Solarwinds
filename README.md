@@ -11,7 +11,7 @@ It finds devices and IPs that match a given search term (name or IP) and prints 
 
 - **NCM search**: Looks for the search term inside running configs downloaded in the last _N_ days.(default 7 days)
 - **IPAM search**: Looks up IP addresses and reverse DNS entries that match the search term.
-- **Deduplicated results**: For NCM, it returns only the latest running config per device and hides devices with “Standby” in their name.
+- **Deduplicated results**: For NCM, it looks only in the latest running config per device and hides devices with “Standby” in their name.
 - **REST API based**: Uses the SolarWinds Information Service v3 JSON API.
 - **Tested in PowerShell 7**.
 
