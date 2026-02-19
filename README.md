@@ -26,3 +26,10 @@ It finds devices and IPs that match a given search term (name or IP) and prints 
 The script loads credentials and host information from a PowerShell environment file in the current user’s home directory:
 
 - **File**: `$HOME/.env.ps1`
+
+ ## Examples
+    .\search-solarwinds.ps1 webserver01
+    .\search-solarwinds.ps1 172.16.1.100
+
+## Credits
+This was written by Mihai Cziraki
