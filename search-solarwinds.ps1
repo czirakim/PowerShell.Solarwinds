@@ -118,20 +118,26 @@ ORDER BY NcmArchive.DownloadTime DESC"
 
 function search-Ipam { 
     $query = @{ 
-    query = "SELECT IpAddress, 
-    CASE Status 
+    query = "SELECT n.IpAddress, 
+    CASE n.Status 
         WHEN 1 THEN 'USED' 
         WHEN 2 THEN 'AVAILABLE' 
-        WHEN 4 THEN 'RESERVERD' 
+        WHEN 4 THEN 'RESERVED' 
         WHEN 8 THEN 'TRANSIENT' 
         ELSE 'UNKNOWN' 
     END AS Status, 
-    DnsBackward, 
-    LastSync, 
-    Comments 
-    FROM IPAM.IPNode 
-    WHERE IpAddress = '$searchTerm' 
-    OR DnsBackward LIKE '%$searchTerm%'" 
+    n.DnsBackward, 
+    n.LastSync, 
+    n.Comments,
+    s.Address AS SubnetAddress,
+    s.AddressMask,
+    s.FriendlyName,
+    s.VLAN,
+    s.Location
+    FROM IPAM.IPNode n
+    JOIN IPAM.Subnet s ON n.SubnetId = s.SubnetId
+    WHERE n.IpAddress = '$searchTerm' 
+    OR n.DnsBackward LIKE '%$searchTerm%'" 
     }
     
     $body = $query | ConvertTo-Json -Compress 
